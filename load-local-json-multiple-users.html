@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Users</title>
+</head>
+<body>
+    <button id="button">Get Users</button>
+    <div id="display-users"></div>
+</body>
+<script>
+    document.getElementById('button').addEventListener('click', getUsers);
+    function getUsers() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'users.json', true);
+        xhr.onload = function () {
+            if(this.status == 200){
+                var user = JSON.parse(this.responseText);
+                var text = "";
+                for (var i in user) {
+                  text +=   `
+                        <ul>
+                        <li>${user[i].name}</li>
+                        </ul>
+                    `
+                }
+                document.getElementById('display-users').innerHTML = text;
+            }else if(this.status == 404){
+                console.log('Something Worng');
+            }
+        }
+        xhr.send();
+    }
+</script>
+</html>

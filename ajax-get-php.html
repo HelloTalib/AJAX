@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP & AJAX FORM</title>
+</head>
+<body>
+    <form id="ajaxform">
+        <input type="text" name="name" id="name">
+        <input type="submit" value="SUBMIT">
+    </form>
+    <script>
+        document.getElementById('ajaxform').addEventListener('submit', getName);
+        function getName(e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'ajax-get-process.php?name='+name, true);
+            xhr.onload = function () {
+                if(this.status == 200) {
+                    console.log(this.responseText);
+                }else if(this.status ==404) {
+                    console.log("Something worng");
+                }
+            }
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Feching local JSON</title>
+</head>
+
+<body>
+    <button id="button">User</button>
+    <script>
+        document.getElementById('button').addEventListener('click', getUser);
+        function getUser() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'user.json', true);
+            xhr.onload = function () {
+                if (this.status = 200) {
+                    console.log(this.responseText);
+                } else if (this.status == 404) {
+                    console.log('Eror found');
+                }
+            }
+            xhr.send();
+        }
+
+    </script>
+</body>
+
+</html>

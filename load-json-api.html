@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX JSON API</title>
+</head>
+<body>
+    <button id="button">Get Users</button>
+    <div id="display-users"></div>
+</body>
+<script>
+    document.getElementById("button").addEventListener('click', getUsers);
+    function getUsers() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://api.github.com/users', true);
+        xhr.onload = function () {
+            if(this.status == 200){
+                var users = JSON.parse(this.responseText);
+                var output = "";
+                for (let i = 0; i < users.length; i++) {
+                    output += `
+                        <ul>
+                        <li>User Name : ${users[i].login}</li>
+                        </ul>
+                    `
+
+                }
+            }else if(this.status == 404){
+                console.log('Something Worng');
+            }
+            document.getElementById('display-users').innerHTML = output;
+        }
+        xhr.send();
+    }
+</script>
+</html>
